@@ -21,9 +21,10 @@ export default function PostsPage() {
   return (
     <div className="max-w-xl mx-auto mt-16 p-8 bg-white rounded-2xl shadow-lg border border-gray-100">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6 tracking-tight">Top 5 Posts</h1>
-      <ToggleButton onClick={() => setShowPosts((s) => !s)}>
-        {showPosts ? 'Hide Posts' : 'Show Posts'}
-      </ToggleButton>
+      <ToggleButton
+        onToggle={(option) => setShowPosts(option === 'Show')}
+        initial={showPosts ? 'Show' : 'Hide'}
+      />
       {isLoading && <p className="text-center text-gray-500">Loading...</p>}
       {error && <p className="text-center text-red-500">{error.message}</p>}
       {showPosts && !isLoading && !error && (

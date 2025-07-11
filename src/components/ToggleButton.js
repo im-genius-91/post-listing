@@ -1,13 +1,39 @@
-/**
- * @param {{ onClick: () => void, children: React.ReactNode }} props
- */
-export default function ToggleButton({ onClick, children }) {
+import React, { useState } from 'react';
+
+const ToggleButton = ({ onToggle, initial = 'Show' }) => {
+  const [selected, setSelected] = useState(initial);
+
+  const handleToggle = (option) => {
+    setSelected(option);
+    if (onToggle) onToggle(option);
+  };
+
   return (
-    <button
-      onClick={onClick}
-      className="block mx-auto mb-8 px-6 py-2 rounded-lg bg-blue-600 text-white font-medium shadow hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-    >
-      {children}
-    </button>
+    <div className="flex items-center justify-center min-h-[60px]">
+      <div className="flex bg-white border border-gray-300 rounded-full overflow-hidden shadow-sm">
+        <button
+          className={`px-6 py-2 focus:outline-none transition-colors duration-200 ${
+            selected === 'Show'
+              ? 'bg-teal-500 text-white'
+              : 'bg-white text-black'
+          } rounded-full`}
+          onClick={() => handleToggle('Show')}
+        >
+          Show
+        </button>
+        <button
+          className={`px-6 py-2 focus:outline-none transition-colors duration-200 ${
+            selected === 'Hide'
+              ? 'bg-teal-500 text-white'
+              : 'bg-white text-black'
+          } rounded-full`}
+          onClick={() => handleToggle('Hide')}
+        >
+          Hide
+        </button>
+      </div>
+    </div>
   );
-} 
+};
+
+export default ToggleButton; 
